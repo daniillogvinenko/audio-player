@@ -17,12 +17,12 @@ const Buttons = ({ isPlaying, toggleIsPlaying, onNextSong, onPrevSong }: Buttons
   return (
     <div className='mt-24 mb-6 h-12 w-[60%] ml-[50%] translate-x-[-50%] flex justify-between items-center font-[Poppins] text-[25px]'>
         <button onClick={onPrevSong} className='ControlButton'>
-          <img width={40} height={40} src={prevButton} alt="" />
+          <img width={40} height={40} src={prevButton} alt="prevBtn" />
         </button>
         {isPlaying
-        ? <button onClick={toggleIsPlaying} className='ControlButton'><img width={50} height={50} src={stopButton} alt="" /></button>
-        : <button onClick={toggleIsPlaying} className='ControlButton'><img width={50} height={50} src={playButton} alt="" /></button>}
-        <button onClick={onNextSong} className='ControlButton'><img width={40} height={40} src={nextButton} alt="" /></button>
+        ? <button onClick={toggleIsPlaying} className='ControlButton'><img width={50} height={50} src={stopButton} alt="stopBtn" /></button>
+        : <button onClick={toggleIsPlaying} className='ControlButton'><img width={50} height={50} src={playButton} alt="playBtn" /></button>}
+        <button onClick={onNextSong} className='ControlButton'><img width={40} height={40} src={nextButton} alt="nextBtn" /></button>
     </div>
   )
 }

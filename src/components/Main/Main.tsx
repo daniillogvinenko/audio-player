@@ -76,7 +76,7 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
   return (
     <div className='Main'>
       <div className='AlbumCover'>
-        <img src={songsArr[currentSong].pictureSource} alt="" />
+        <img src={songsArr[currentSong].pictureSource} alt="album cover" />
       </div>
       <div className='SongName'>{songsArr[currentSong].songName}</div>
       <div className='ArtistName'>{songsArr[currentSong].artistName}</div>
@@ -85,7 +85,9 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
       <audio 
         controls = {false} 
         onTimeUpdate={e => onTimeChange(e.currentTarget.currentTime)} 
-        ref={audioRef} loop src={songsArr[currentSong].songSource}
+        ref={audioRef} 
+        loop 
+        src={songsArr[currentSong].songSource}
       />
 
       <div className='flex justify-between font-extralight mb-2'>
@@ -101,8 +103,8 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
 
       <div className='VolumeInput'>
         {isMuted
-        ? <img onClick={onUnmute} width={20} height={20} className='mr-6 hover:cursor-pointer' src={volumeOffIcon} alt="" />
-        : <img onClick={onMute} width={20} height={20} className='mr-6 hover:cursor-pointer' src={volumeIcon} alt="" />
+        ? <img onClick={onUnmute} width={20} height={20} className='mr-6 hover:cursor-pointer' src={volumeOffIcon} alt="unmute" />
+        : <img onClick={onMute} width={20} height={20} className='mr-6 hover:cursor-pointer' src={volumeIcon} alt="mute" />
         }
         
         <input type="range" className='range' value={volume} onChange={e => onVolumeInputChange(e.target.value)}/>
