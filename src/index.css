@@ -1,13 +1,136 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*Обнуление*/
+* {
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  border: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus, :active {
+  outline: none;
+}
+
+a:focus, a:active {
+  outline: none;
+}
+
+nav, footer, header, aside {
+  display: block;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* ------------------------------------------------------------------ */
+
+body{
+  background: url('./assets//images//purpleBg.jpg') 0 0/cover;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@font-face {
+  font-family: "Chava";
+  src:
+    local("Chava"),
+    url("./assets//fonts/Chava-Regular.otf") format("opentype"),
+}
+
+.Main {
+  @apply absolute ml-[50%] translate-x-[-50%] min-w-[400px] inline-block rounded-[50px] p-7 font-[Poppins] text-white shadow-2xl border border-solid border-white backdrop-blur-2xl;
+}
+
+.AlbumCover {
+  @apply overflow-hidden w-52 h-52 rounded-[40px] bg-black ml-[50%] translate-x-[-50%] mb-24 mt-12 border border-solid border-white;
+}
+
+.SongName {
+  @apply text-center font-light text-[25px] mb-5;
+}
+
+.ArtistName {
+  @apply text-center font-extralight text-[17px] opacity-80 mb-11;
+}
+
+.ControlButton {
+  @apply hover:scale-[93%] hover:translate-y-[-6px] duration-300;
+}
+
+.VolumeInput {
+  @apply flex justify-between items-center mt-16 w-56;
+}
+
+.range {
+  width: 100%;
+  height: 3px;
+  appearance: none;
+  background: #ffffff;
+  outline: none;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.range::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background: #cf2d2d;
+  border-radius: 50%;
+  border: 1px solid black;
+  box-shadow: -407px 0 0 400px #E03D3E;
+  cursor: pointer;
 }
