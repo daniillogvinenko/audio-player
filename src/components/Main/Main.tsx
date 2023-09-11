@@ -14,6 +14,7 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
   const [volume, setVolume] = useState<number>(40)
   const [timeFormat, setTimeFormat] = useState<timeFormat>('left') // left | total
   const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [lastVolume, setLastVolume] = useState<number>(0)
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -62,6 +63,7 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
   }
 
   const onMute = () => {
+    setLastVolume(volume);
     setIsMuted(true);
     audioRef.current!.volume = 0;
     setVolume(0);
@@ -69,8 +71,8 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
 
   const onUnmute = () => {
     setIsMuted(false);
-    audioRef.current!.volume = 50 / 100;
-    setVolume(50);
+    audioRef.current!.volume = lastVolume / 100;
+    setVolume(lastVolume);
   }
 
   return (
@@ -83,6 +85,7 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
 
 
       <audio 
+        muted = {isMuted}
         controls = {false} 
         onTimeUpdate={e => onTimeChange(e.currentTarget.currentTime)} 
         ref={audioRef} 
@@ -101,21 +104,22 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
       </div>
       <input type="range" className='range' value={timeInput} onChange={e => onTimeInputChange(e.target.value)}/>
 
-      <div className='VolumeInput'>
-        {isMuted
-        ? <img onClick={onUnmute} width={20} height={20} className='mr-6 hover:cursor-pointer' src={volumeOffIcon} alt="unmute" />
-        : <img onClick={onMute} width={20} height={20} className='mr-6 hover:cursor-pointer' src={volumeIcon} alt="mute" />
-        }
-        
-        <input type="range" className='range' value={volume} onChange={e => onVolumeInputChange(e.target.value)}/>
+      <div className='items-center justify-between'>
+        <div className='VolumeInput'>
+          {isMuted
+          ? <img onClick={onUnmute} width={20} height={20} className='mr-6 hover:cursor-pointer' src={volumeOffIcon} alt="unmute" />
+          : <img onClick={onMute} width={20} height={20} className='mr-6 hover:cursor-pointer' src={volumeIcon} alt="mute" />
+          }
+          
+          <input type="range" className='range' value={volume} onChange={e => onVolumeInputChange(e.target.value)}/>
+        </div>
+        <Buttons
+          isPlaying = {isPlaying}
+          toggleIsPlaying = {toggleIsPlaying}
+          onNextSong = {onNextSong}
+          onPrevSong = {onPrevSong}
+        />
       </div>
-
-      <Buttons
-        isPlaying = {isPlaying}
-        toggleIsPlaying = {toggleIsPlaying}
-        onNextSong = {onNextSong}
-        onPrevSong = {onPrevSong}
-      />
     </div>
   )
 }

@@ -15,7 +15,7 @@ interface ButtonsProps {
 
 const Buttons = ({ isPlaying, toggleIsPlaying, onNextSong, onPrevSong }: ButtonsProps) => {
   return (
-    <div className='mt-24 mb-6 h-12 w-[60%] ml-[50%] translate-x-[-50%] flex justify-between items-center font-[Poppins] text-[25px]'>
+    <div className='ButtonsContainer'>
         <button onClick={onPrevSong} className='ControlButton'>
           <img width={40} height={40} src={prevButton} alt="prevBtn" />
         </button>

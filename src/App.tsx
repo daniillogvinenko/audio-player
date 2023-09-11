@@ -8,12 +8,12 @@ function App() {
   const [currentSong, setCurrentSong] = useState(0);
 
   return (
-    <div className="App h-screen flex flex-col justify-between bg-black bg-opacity-60 text-white">
+    <div className="App text-white">
       <div>
         <Header />
-        <div className='flex mt-20'>
-          <Aside currentSong={currentSong} setCurrentSong={setCurrentSong}/>
+        <div className=''>
           <Main currentSong={currentSong} setCurrentSong={setCurrentSong}/>
+          <Aside currentSong={currentSong} setCurrentSong={setCurrentSong}/>
         </div>
       </div>
       <Footer />

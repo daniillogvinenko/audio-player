@@ -77,8 +77,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ------------------------------------------------------------------ */
 
-body{
-  background: url('./assets//images//purpleBg.jpg') 0 0/cover;
+.App{
+  background: url('./assets//images//purpleBg.jpg') 0 0/cover no-repeat, rgba(0, 0, 0, 0.603);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -91,7 +91,7 @@ body{
 }
 
 .Main {
-  @apply absolute ml-[50%] translate-x-[-50%] min-w-[400px] inline-block rounded-[50px] p-7 font-[Poppins] text-white shadow-2xl border border-solid border-white backdrop-blur-2xl;
+  @apply rounded-[50px] px-7 font-[Poppins] text-white lg:w-[1000px] lg:ml-[50%] lg:translate-x-[-50%] 2xl:w-[1300px];
 }
 
 .AlbumCover {
@@ -99,11 +99,15 @@ body{
 }
 
 .SongName {
-  @apply text-center font-light text-[25px] mb-5;
+  @apply text-center font-light text-[25px] mb-5 leading-10;
 }
 
 .ArtistName {
   @apply text-center font-extralight text-[17px] opacity-80 mb-11;
+}
+
+.ButtonsContainer {
+  @apply mt-12 mb-12 h-12 max-w-[360px] min-w-[260px] flex justify-between items-center ml-[50%] translate-x-[-50%] lg:translate-x-[-50%];
 }
 
 .ControlButton {
@@ -111,17 +115,11 @@ body{
 }
 
 .VolumeInput {
-  @apply flex justify-between items-center mt-16 w-56;
+  @apply flex justify-between items-center w-56 mt-12;
 }
 
 .range {
-  width: 100%;
-  height: 3px;
-  appearance: none;
-  background: #ffffff;
-  outline: none;
-  border-radius: 15px;
-  overflow: hidden;
+  @apply w-full h-[8px] md:h-[3px] appearance-none bg-[#ffffff] outline-none rounded-[15px] overflow-hidden;
 }
 
 .range::-webkit-slider-thumb {

@@ -4,9 +4,9 @@ import { AsideProps } from '../../helpers/types';
 
 const Aside = ({ currentSong, setCurrentSong }: AsideProps) => {
   return (
-    <div className='font-[Poppins] font-thin text-[22px] opacity-75 ml-7'>
+    <div className='font-[Poppins] font-thin text-[22px] text-center opacity-75 px-8'>
         {songsArr.map(song => (
-            <div className='mb-7 hover:cursor-pointer hover:translate-x-[15px] duration-200' onClick={() => setCurrentSong(song.songId)}>
+            <div className='leading-10 mb-7 hover:cursor-pointer duration-200 md:hover:translate-x-[4px]' onClick={() => setCurrentSong(song.songId)}>
                 {
                     song.songId === currentSong
                     ? <span className='font-normal'><span>{song.songName}</span><span > - </span><span>{song.artistName}</span></span>
