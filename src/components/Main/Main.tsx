@@ -1,20 +1,28 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { secondsToTime } from '../../helpers';
 import Buttons from './Buttons/Buttons';
 import { songsArr } from '../../constants';
 import volumeIcon from '../../assets/images/volume.svg'
 import volumeOffIcon from '../../assets/images/volumeOff.svg'
-import { MainProps, timeFormat } from '../../helpers/types';
+import { timeFormat } from '../../helpers/types';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useDispatch } from 'react-redux/es/hooks/useDispatch';
+import { RootState } from '../../redux/store';
+import { setCurrentSong, setIsMuted, setIsPlaying, setLastVolume, setTimeFormat, setTimeInput, setVolume } from '../../redux/slices';
 
 
 
-const Main = ({ currentSong, setCurrentSong}:MainProps) => {
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [timeInput, setTimeInput] = useState<number>(0)
-  const [volume, setVolume] = useState<number>(40)
-  const [timeFormat, setTimeFormat] = useState<timeFormat>('left') // left | total
-  const [isMuted, setIsMuted] = useState<boolean>(false);
-  const [lastVolume, setLastVolume] = useState<number>(0)
+const Main = () => {
+
+  const currentSong = useSelector<RootState, number>(state => state.main.currentSong);
+  const isPlaying = useSelector<RootState, boolean>(state => state.main.isPlaying);
+  const timeInput = useSelector<RootState, number>(state => state.main.timeInput);
+  const volume = useSelector<RootState, number>(state => state.main.volume);
+  const timeFormat = useSelector<RootState, timeFormat>(state => state.main.timeFormat);
+  const isMuted = useSelector<RootState, boolean>(state => state.main.isMuted);
+  const lastVolume = useSelector<RootState, number>(state => state.main.lastVolume);
+  const dispatch = useDispatch();
+
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -24,19 +32,19 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
     } else {
       audioRef.current?.play();
     }
-    setIsPlaying(!isPlaying);
+    dispatch(setIsPlaying(!isPlaying));
   }
 
   const onVolumeInputChange = (newValue: string) => { // поменять громкость через инпут
     audioRef.current!.volume = +newValue / 100;
-    setVolume(+newValue);
+    dispatch(setVolume(+newValue));
     if(+newValue) //если изменить громкость когда в муте, выйти из мута
     {
-      setIsMuted(false);
+      dispatch(setIsMuted(false));
     } 
     else //если сделать громкость на ноль, то замутить
     {
-      setIsMuted(true);
+      dispatch(setIsMuted(true));
     }
   }
 
@@ -45,34 +53,34 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
   }
 
   const onTimeChange = (newValue: number) => { // когда время в аудио изменяется меняем стейт
-    setTimeInput(newValue * 100 / audioRef.current!.duration)
+    dispatch(setTimeInput(newValue * 100 / audioRef.current!.duration));
   }
 
   const onNextSong = () => {
     if(currentSong < songsArr.length - 1)
-      setCurrentSong(currentSong + 1);
+    dispatch(setCurrentSong(currentSong + 1));
     audioRef.current!.currentTime = 0;
-    setTimeInput(0);
+    dispatch(setTimeInput(0));
   }
 
   const onPrevSong = () => {
     if(currentSong >= 1)
-      setCurrentSong(currentSong - 1);
+    dispatch(setCurrentSong(currentSong - 1));
     audioRef.current!.currentTime = 0;
-    setTimeInput(0);
+    dispatch(setTimeInput(0));
   }
 
   const onMute = () => {
-    setLastVolume(volume);
-    setIsMuted(true);
+    dispatch(setLastVolume(volume));
+    dispatch(setIsMuted(true));
     audioRef.current!.volume = 0;
-    setVolume(0);
+    dispatch(setVolume(0));
   }
 
   const onUnmute = () => {
-    setIsMuted(false);
+    dispatch(setIsMuted(false));
     audioRef.current!.volume = lastVolume / 100;
-    setVolume(lastVolume);
+    dispatch(setVolume(lastVolume));
   }
 
   return (
@@ -97,8 +105,8 @@ const Main = ({ currentSong, setCurrentSong}:MainProps) => {
         <span>{secondsToTime(audioRef.current?.currentTime)}</span>
         {audioRef.current?.duration && audioRef.current.currentTime 
         ? timeFormat === 'left'
-          ? <span className='hover:cursor-pointer' onClick={() => setTimeFormat('total')}>-{secondsToTime(audioRef.current?.duration - audioRef.current?.currentTime)}</span>
-          : <span className='hover:cursor-pointer' onClick={() => setTimeFormat('left')}>{secondsToTime(audioRef.current?.duration)}</span>
+          ? <span className='hover:cursor-pointer' onClick={() => dispatch(setTimeFormat('total'))}>-{secondsToTime(audioRef.current?.duration - audioRef.current?.currentTime)}</span>
+          : <span className='hover:cursor-pointer' onClick={() => dispatch(setTimeFormat('left'))}>{secondsToTime(audioRef.current?.duration)}</span>
         : <span>-{secondsToTime(audioRef.current?.duration)}</span>
         }
       </div>

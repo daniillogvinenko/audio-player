@@ -17,3 +17,13 @@ export type MainProps = {
     currentSong: number,
     setCurrentSong: (newCurrentSong: number) => void;
 }
+
+export type AppState = {
+    currentSong: number,
+    isPlaying: boolean,
+    timeInput: number,
+    volume: number,
+    timeFormat: 'left' | 'total',
+    isMuted: boolean,
+    lastVolume: number,
+}
